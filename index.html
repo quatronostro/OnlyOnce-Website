@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Toastify CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <style>
         * {
             margin: 0;
@@ -262,8 +264,10 @@
         </div>
         <div class="app-name-home">OnlyOnce</div>
         <div class="store-badges">
-            <img src="./assets/App_Store_Badge.svg" alt="Download on the App Store" class="store-badge">
-            <img src="./assets/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" class="store-badge">
+            <img src="./assets/App_Store_Badge.svg" alt="Download on the App Store" class="store-badge" id="app-store-badge">
+            <a href="https://play.google.com/store/apps/details?id=com.onlyonce.app" target="_blank" rel="noopener noreferrer">
+                <img src="./assets/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" class="store-badge" id="play-store-badge">
+            </a>
         </div>
     </div>
     <div class="policy-links">
@@ -328,6 +332,23 @@
             }, 800);
         });
 
+        // Handle App Store badge click (show coming soon toast)
+        document.getElementById('app-store-badge').addEventListener('click', function() {
+            Toastify({
+                text: "Coming Soon",
+                duration: 3000,
+                gravity: "top",
+                position: "center",
+                style: {
+                    background: "linear-gradient(to right, #333, #555)",
+                    borderRadius: "8px",
+                    color: "#fff",
+                    fontSize: "16px",
+                    fontWeight: "500"
+                }
+            }).showToast();
+        });
+
         // Start the sequence when page loads
         window.addEventListener('load', () => {
             if (window.location.hash === '#show-content') {
@@ -344,5 +365,7 @@
             }
         });
     </script>
+    <!-- Toastify JS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 </html> 
