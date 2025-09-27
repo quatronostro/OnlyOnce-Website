@@ -200,6 +200,24 @@
             filter: brightness(1.1) drop-shadow(0 4px 12px rgba(255, 255, 255, 0.2));
         }
 
+        .patreon-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .patreon-logo {
+            height: 40px;
+            transition: transform 0.3s ease, filter 0.3s ease;
+            cursor: pointer;
+        }
+
+        .patreon-logo:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1) drop-shadow(0 4px 12px rgba(255, 255, 255, 0.2));
+        }
+
         .policy-links {
             position: absolute;
             top: 20px;
@@ -237,6 +255,14 @@
             .store-badges {
                 gap: 15px;
             }
+            
+            .patreon-logo {
+                height: 32px;
+            }
+            
+            .patreon-container {
+                margin-top: 15px;
+            }
         }
     </style>
 </head>
@@ -267,6 +293,11 @@
             <img src="./assets/App_Store_Badge.svg" alt="Download on the App Store" class="store-badge" id="app-store-badge">
             <a href="https://play.google.com/store/apps/details?id=com.onlyonce.app" target="_blank" rel="noopener noreferrer">
                 <img src="./assets/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" class="store-badge" id="play-store-badge">
+            </a>
+        </div>
+        <div class="patreon-container">
+            <a href="https://patreon.com/OnlyOnce_Donate" target="_blank" rel="noopener noreferrer" id="patreon-link">
+                <img src="./assets/PATREON_WORDMARK_1_WHITE_RGB.png" alt="Support us on Patreon" class="patreon-logo">
             </a>
         </div>
     </div>
