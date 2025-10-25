@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="assets/app_logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -180,6 +180,17 @@
             margin-top: 20px;
         }
 
+        .tagline {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            font-size: 16px;
+            text-align: center;
+            color: #FFFFFF;
+            line-height: 1.6;
+            max-width: 500px;
+            margin-top: 15px;
+        }
+
         .store-badges {
             display: flex;
             flex-direction: row;
@@ -281,6 +292,12 @@
                 font-size: 20px;
             }
             
+            .tagline {
+                font-size: 14px;
+                max-width: 90%;
+                padding: 0 20px;
+            }
+            
             .store-badge {
                 height: 50px;
             }
@@ -332,6 +349,10 @@
             <img src="./assets/app_logo.png" alt="OnlyOnce App Logo">
         </div>
         <div class="app-name-home">OnlyOnce</div>
+        <div class="tagline">
+            Just one message a day.<br>
+            This is just the beginning. Soon, you'll be able to make your favorite messages concrete.
+        </div>
         <div class="store-badges">
             <a href="https://apps.apple.com/us/app/onlyonce-me/id6753912931" target="_blank" rel="noopener noreferrer">
                 <img src="./assets/App_Store_Badge.svg" alt="Download on the App Store" class="store-badge" id="app-store-badge">
