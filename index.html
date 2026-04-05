@@ -15,447 +15,791 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             background-color: #0A0A0A;
             color: #FFFFFF;
             font-family: 'Inter', sans-serif;
-            height: 100vh;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
-        /* Loader Section */
-        #loader {
+        /* ── Navigation ── */
+        .navbar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 60px;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
             z-index: 1000;
-            opacity: 1;
-            transition: opacity 0.8s ease-in-out;
-            gap: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
         }
 
-        #loader.fade-out {
-            opacity: 0;
-        }
-
-        .logo-container {
-            position: relative;
-            width: 120px;
-            height: 120px;
+        .nav-brand {
             display: flex;
-            justify-content: center;
             align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #fff;
         }
 
-        .app-logo-circle {
-            width: 120px;
-            height: 120px;
+        .nav-logo {
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
-            background: rgb(0, 0, 0);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 20px rgba(124, 124, 124, 0.2);
-        }
-
-        .app-logo {
-            width: 100%;
-            height: 100%;
             object-fit: cover;
-            border-radius: 50%;
         }
 
-        .loading-spinner {
-            width: 30px;
-            height: 30px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-top: 2px solid white;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .app-name {
-            font-size: 24px;
+        .nav-brand-name {
+            font-size: 18px;
             font-weight: 600;
-            text-align: center;
-            margin-top: 20px;
+            letter-spacing: 0.5px;
         }
 
-        /* Reveal Prompt Section */
-        #reveal-prompt {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        .nav-links {
             display: flex;
-            justify-content: center;
             align-items: center;
-            z-index: 900;
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out;
-            cursor: pointer;
+            gap: 32px;
         }
 
-        #reveal-prompt.fade-in {
-            opacity: 1;
-        }
-
-        #reveal-prompt.fade-out {
-            opacity: 0;
-        }
-
-        .reveal-text {
-            font-size: 24px;
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 14px;
             font-weight: 400;
-            text-align: center;
-            animation: glow 2s ease-in-out infinite;
-            position: relative;
+            transition: color 0.3s ease;
+            letter-spacing: 0.3px;
         }
 
-        @keyframes glow {
-            0%, 100% {
-                text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-            }
-            50% {
-                text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.4);
-            }
+        .nav-links a:hover {
+            color: #fff;
         }
 
-        /* Home Content Section */
-        #home-content {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* ── Split-Screen Hero ── */
+        .hero {
+            display: flex;
             width: 100%;
-            height: 100%;
+            height: 100vh;
+            padding-top: 60px;
+        }
+
+        .hero-panel {
+            flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 800;
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out;
-            gap: 30px;
-        }
-
-        #home-content.fade-in {
-            opacity: 1;
-        }
-
-        .app-logo-container {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: rgb(0, 0, 0);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+            position: relative;
+            transition: flex 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             overflow: hidden;
+            padding: 40px 30px;
         }
 
-        .app-logo-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
+        .hero-panel-left {
+            background: #0A0A0A;
         }
 
-        .app-name-home {
-            font-size: 24px;
-            font-weight: 600;
-            text-align: center;
-            margin-top: 20px;
+        .hero-panel-right {
+            background: #0E0E0E;
         }
 
-        .tagline {
+        .hero-divider {
+            width: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            align-self: stretch;
+            margin-top: 60px;
+        }
+
+        .hero.hover-left .hero-panel-left {
+            flex: 1.8;
+        }
+
+        .hero.hover-left .hero-panel-right {
+            flex: 1;
+        }
+
+        .hero.hover-right .hero-panel-right {
+            flex: 1.8;
+        }
+
+        .hero.hover-right .hero-panel-left {
+            flex: 1;
+        }
+
+        .panel-label {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.35);
+            margin-bottom: 28px;
+        }
+
+        .panel-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .panel-subtitle {
             font-family: 'Roboto', sans-serif;
             font-weight: 300;
-            font-size: 16px;
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.55);
             text-align: center;
-            color: #FFFFFF;
+            max-width: 320px;
             line-height: 1.6;
-            max-width: 500px;
-            margin-top: 15px;
+            margin-bottom: 32px;
         }
 
         .store-badges {
             display: flex;
             flex-direction: row;
-            gap: 20px;
+            gap: 16px;
             align-items: center;
+            margin-bottom: 28px;
         }
 
         .store-badge {
-            height: 60px;
+            height: 52px;
             transition: transform 0.3s ease, filter 0.3s ease;
             cursor: pointer;
         }
 
         .store-badge:hover {
             transform: scale(1.05);
-            filter: brightness(1.1) drop-shadow(0 4px 12px rgba(255, 255, 255, 0.2));
+            filter: brightness(1.1) drop-shadow(0 4px 12px rgba(255, 255, 255, 0.15));
         }
 
-        .patreon-container {
+        .social-row {
             display: flex;
-            justify-content: center;
             align-items: center;
-            margin-top: 25px;
+            gap: 16px;
         }
 
-        .patreon-logo {
-            height: 40px;
-            transition: transform 0.3s ease, filter 0.3s ease;
-            cursor: pointer;
-        }
-
-        .patreon-logo:hover {
-            transform: scale(1.05);
-            filter: brightness(1.1) drop-shadow(0 4px 12px rgba(255, 255, 255, 0.2));
-        }
-
-        .social-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .social-logo {
-            height: 35px;
-            width: 35px;
-            transition: transform 0.3s ease, filter 0.3s ease;
-            cursor: pointer;
+        .social-icon {
+            height: 34px;
+            width: 34px;
             border-radius: 8px;
+            transition: transform 0.3s ease, filter 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .social-logo:hover {
+        .social-icon:hover {
             transform: scale(1.1);
-            filter: brightness(1.1) drop-shadow(0 4px 12px rgba(255, 255, 255, 0.2));
+            filter: brightness(1.1) drop-shadow(0 4px 12px rgba(255, 255, 255, 0.15));
         }
 
-        .instagram-logo {
+        .social-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .social-icon.instagram {
             background: linear-gradient(45deg, #232324, #454546, #999999, #d1d1d1, #dddddd, #ffffff);
-            padding: 6px;
+            padding: 5px;
         }
 
-        .tiktok-logo {
+        .social-icon.tiktok {
             background: #d1d1d1;
-            padding: 6px;
+            padding: 5px;
         }
 
-        .policy-links {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            display: none;
-            gap: 20px;
-            z-index: 900;
+        .social-icon.patreon {
+            background: transparent;
+            height: 34px;
+            width: auto;
+            padding: 0;
         }
 
-        .policy-links a {
-            color: #888;
+        .social-icon.patreon img {
+            height: 34px;
+            width: auto;
+            border-radius: 0;
+        }
+
+        .shop-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 48px;
+            background: #fff;
+            color: #0A0A0A;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
         }
 
-        /* Responsive Design */
+        .shop-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.15);
+            background: #f0f0f0;
+        }
+
+        .shop-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* ── Gallery Section ── */
+        .gallery {
+            padding: 100px 0 60px;
+            overflow: hidden;
+        }
+
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .gallery-label {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.35);
+            margin-bottom: 16px;
+        }
+
+        .gallery-title {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .gallery-row {
+            display: flex;
+            gap: 0;
+            width: 100%;
+        }
+
+        .gallery-row.full {
+            display: block;
+        }
+
+        .gallery-row.pair {
+            display: flex;
+            gap: 4px;
+            padding: 0 4px;
+        }
+
+        .gallery-row.trio {
+            display: flex;
+            gap: 4px;
+            padding: 0 4px;
+        }
+
+        .gallery-row.centered {
+            display: flex;
+            justify-content: center;
+            padding: 4px;
+        }
+
+        .gallery-row.small-centered {
+            display: flex;
+            justify-content: center;
+            padding: 4px;
+        }
+
+        .gallery-img-wrap {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery-row.full .gallery-img-wrap {
+            width: 100%;
+            height: 85vh;
+        }
+
+        .gallery-row.pair .gallery-img-wrap {
+            flex: 1;
+            height: 75vh;
+        }
+
+        .gallery-row.trio .gallery-img-wrap {
+            flex: 1;
+            height: 55vh;
+            max-height: 500px;
+        }
+
+        .gallery-row.centered .gallery-img-wrap {
+            width: 60%;
+            height: 80vh;
+        }
+
+        .gallery-row.small-centered .gallery-img-wrap {
+            width: 40%;
+            height: 55vh;
+            max-height: 500px;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(40%);
+            transition: filter 0.8s ease, transform 0.8s ease;
+        }
+
+        .gallery-img-wrap:hover .gallery-img {
+            filter: grayscale(0%);
+            transform: scale(1.02);
+        }
+
+        .gallery-img-wrap.revealed .gallery-img {
+            filter: grayscale(15%);
+        }
+
+        /* Scroll reveal */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal-on-scroll.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-on-scroll.delay-1 { transition-delay: 0.15s; }
+        .reveal-on-scroll.delay-2 { transition-delay: 0.3s; }
+
+        .gallery-spacer {
+            height: 4px;
+        }
+
+        /* ── About Section ── */
+        .about {
+            padding: 120px 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-label {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.35);
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .about-block {
+            margin-bottom: 56px;
+        }
+
+        .about-block h2 {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+        }
+
+        .about-block p {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            font-size: 16px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .about-slogan {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: 60px;
+        }
+
+        .about-slogan p {
+            font-size: 18px;
+            font-weight: 400;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 13px;
+        }
+
+        /* ── Responsive ── */
         @media (max-width: 768px) {
-            #home-content {
-                gap: 25px;
-            }
-            
-            .reveal-text {
-                font-size: 20px;
-            }
-            
-            .app-logo-container, .app-logo-circle {
-                width: 100px;
-                height: 100px;
-            }
-            
-            .app-name, .app-name-home {
-                font-size: 20px;
-            }
-            
-            .tagline {
-                font-size: 14px;
-                max-width: 90%;
+            .navbar {
                 padding: 0 20px;
             }
-            
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(10, 10, 10, 0.97);
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+                flex-direction: column;
+                justify-content: center;
+                gap: 36px;
+                transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+                border-left: 1px solid rgba(255, 255, 255, 0.06);
+            }
+
+            .nav-links.open {
+                right: 0;
+            }
+
+            .nav-links a {
+                font-size: 18px;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero {
+                flex-direction: column;
+                height: auto;
+                min-height: 100vh;
+            }
+
+            .hero-panel {
+                padding: 60px 24px;
+                min-height: 50vh;
+            }
+
+            .hero-panel-left {
+                padding-top: 80px;
+            }
+
+            .hero-divider {
+                width: 100%;
+                height: 1px;
+                margin-top: 0;
+            }
+
+            .hero.hover-left .hero-panel-left,
+            .hero.hover-left .hero-panel-right,
+            .hero.hover-right .hero-panel-left,
+            .hero.hover-right .hero-panel-right {
+                flex: 1;
+            }
+
+            .panel-title {
+                font-size: 28px;
+            }
+
+            .panel-subtitle {
+                font-size: 14px;
+            }
+
             .store-badge {
-                height: 50px;
+                height: 44px;
             }
-            
+
+            .gallery-row.pair {
+                flex-direction: column;
+            }
+
+            .gallery-row.pair .gallery-img-wrap {
+                height: 60vh;
+            }
+
+            .gallery-row.trio {
+                flex-direction: column;
+            }
+
+            .gallery-row.trio .gallery-img-wrap {
+                height: 50vh;
+                max-height: none;
+            }
+
+            .gallery-row.full .gallery-img-wrap {
+                height: 60vh;
+            }
+
+            .gallery-row.centered .gallery-img-wrap {
+                width: 100%;
+                height: 60vh;
+                padding: 0;
+            }
+
+            .gallery-row.centered {
+                padding: 0 4px;
+            }
+
+            .gallery-row.small-centered .gallery-img-wrap {
+                width: 80%;
+                height: 50vh;
+                max-height: none;
+            }
+
+            .about {
+                padding: 80px 24px;
+            }
+
+            .about-block p {
+                font-size: 15px;
+            }
+
+            .shop-btn {
+                padding: 14px 36px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
             .store-badges {
-                gap: 15px;
+                flex-direction: column;
+                gap: 10px;
             }
-            
-            .patreon-logo {
-                height: 32px;
+
+            .store-badge {
+                height: 48px;
             }
-            
-            .patreon-container {
-                margin-top: 20px;
-            }
-            
-            .social-container {
-                gap: 15px;
-                margin-top: 15px;
-            }
-            
-            .social-logo {
-                height: 30px;
-                width: 30px;
+
+            .panel-title {
+                font-size: 24px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Loader Section -->
-    <div id="loader">
-        <div class="logo-container">
-            <div class="app-logo-circle">
-                <img src="./assets/app_logo.png" alt="OnlyOnce App Logo" class="app-logo">
-            </div>
-        </div>
-        <div class="loading-spinner"></div>
-        <div class="app-name">OnlyOnce</div>
-    </div>
 
-    <!-- Reveal Prompt Section -->
-    <div id="reveal-prompt">
-        <div class="reveal-text">Tap to reveal</div>
-    </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="/" class="nav-brand">
+            <img src="./assets/app_logo.png" alt="OnlyOnce" class="nav-logo">
+            <span class="nav-brand-name">OnlyOnce</span>
+        </a>
+        <div class="nav-links" id="nav-links">
+            <a href="#about">About Us</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Use</a>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
 
-    <!-- Home Content Section -->
-    <div id="home-content">
-        <div class="app-logo-container">
-            <img src="./assets/app_logo.png" alt="OnlyOnce App Logo">
-        </div>
-        <div class="app-name-home">OnlyOnce</div>
-        <div class="tagline">
-            Just one message a day.<br>
-            This is just the beginning. Soon, you'll be able to make your favorite messages concrete.
-        </div>
-        <div class="store-badges">
-            <a href="https://apps.apple.com/us/app/onlyonce-me/id6753912931" target="_blank" rel="noopener noreferrer">
-                <img src="./assets/App_Store_Badge.svg" alt="Download on the App Store" class="store-badge" id="app-store-badge">
-            </a>
-            <a href="https://play.google.com/store/apps/details?id=com.onlyonce.app" target="_blank" rel="noopener noreferrer">
-                <img src="./assets/Google_Play_Store_Badge.svg" alt="Get it on Google Play" class="store-badge" id="play-store-badge">
-            </a>
-        </div>
-        <div class="patreon-container">
-            <a href="https://patreon.com/OnlyOnce_Donate" target="_blank" rel="noopener noreferrer" id="patreon-link">
-                <img src="./assets/PATREON_logo.png" alt="Support us on Patreon" class="patreon-logo">
-            </a>
-        </div>
-        <div class="social-container">
-            <div class="instagram-logo social-logo" id="instagram-link">
-                <a href="https://www.instagram.com/only.once.me" target="_blank" rel="noopener noreferrer">
-                <img src="./assets/instagram_logo.png" alt="Follow us on Instagram" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
-            </a>
+    <!-- Split-Screen Hero -->
+    <section class="hero" id="hero">
+        <div class="hero-panel hero-panel-left" id="panel-left">
+            <div class="panel-label">Experience</div>
+            <div class="panel-title">The App</div>
+            <div class="panel-subtitle">
+                Just one message a day. A single thought from the digital void, delivered to you.
             </div>
-            <div class="tiktok-logo social-logo" id="tiktok-link">
-                <a href="https://www.tiktok.com/@onlyonce.me" target="_blank" rel="noopener noreferrer">
-                <img src="./assets/tiktok-logo.svg" alt="Follow us on TikTok" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
+            <div class="store-badges">
+                <a href="https://apps.apple.com/us/app/onlyonce-me/id6753912931" target="_blank" rel="noopener noreferrer">
+                    <img src="./assets/App_Store_Badge.svg" alt="Download on the App Store" class="store-badge">
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.onlyonce.app" target="_blank" rel="noopener noreferrer">
+                    <img src="./assets/Google_Play_Store_Badge.svg" alt="Get it on Google Play" class="store-badge">
+                </a>
+            </div>
+            <div class="social-row">
+                <a href="https://patreon.com/OnlyOnce_Donate" target="_blank" rel="noopener noreferrer" class="social-icon patreon">
+                    <img src="./assets/PATREON_logo.png" alt="Support us on Patreon">
+                </a>
+                <a href="https://www.instagram.com/only.once.me" target="_blank" rel="noopener noreferrer" class="social-icon instagram">
+                    <img src="./assets/instagram_logo.png" alt="Follow us on Instagram">
+                </a>
+                <a href="https://www.tiktok.com/@onlyonce.me" target="_blank" rel="noopener noreferrer" class="social-icon tiktok">
+                    <img src="./assets/tiktok-logo.svg" alt="Follow us on TikTok">
                 </a>
             </div>
         </div>
-    </div>
-    <div class="policy-links">
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms of Use</a>
-    </div>
+
+        <div class="hero-divider"></div>
+
+        <div class="hero-panel hero-panel-right" id="panel-right">
+            <div class="panel-label">Wear the moment</div>
+            <div class="panel-title">The Shop</div>
+            <div class="panel-subtitle">
+                Limited drops. Heavy cotton. Clean cuts. Once it's gone, it's gone.
+            </div>
+            <a href="https://store.onlyonce.me/" target="_blank" rel="noopener noreferrer" class="shop-btn">
+                Shop Now
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Us -->
+    <section class="about" id="about">
+        <div class="about-label reveal-on-scroll">About Us</div>
+
+        <div class="about-block reveal-on-scroll">
+            <h2>Who We Are</h2>
+            <p>We didn't start as a clothing brand. We started with a daily signal&mdash;a single text sent to a screen, once a day, meant to cut through the noise. We are a small collective focusing on the space between a digital thought and a physical object. We don't chase trends. We capture fleeting moments and give them a shape.</p>
+        </div>
+
+        <div class="about-block reveal-on-scroll">
+            <h2>What We Do</h2>
+            <p>We take a single thought from the digital void and make it wearable. The process is simple: The OnlyOnce app delivers a daily message. The ones that resonate the most become our archive. Heavy cotton. Clean cuts. The designs move inward. They are not about making a loud statement in a crowded room. They are about keeping something intact. We drop limited t-shirt runs for those who understand the value of the moment. Because once it's gone, it's gone.</p>
+        </div>
+
+        <div class="about-slogan reveal-on-scroll">
+            <p>OnlyOnce isn't just clothing; it's a statement. Designed to capture the moment and make you feel unique.</p>
+        </div>
+    </section>
+
+    <!-- T-Shirt Gallery -->
+    <section class="gallery" id="gallery">
+        <div class="gallery-header reveal-on-scroll">
+            <div class="gallery-label">Archive 001</div>
+            <div class="gallery-title">7 Modes</div>
+        </div>
+
+        <div class="gallery-row trio">
+            <div class="gallery-img-wrap reveal-on-scroll">
+                <img src="./assets/tshirt_photos/tshirt_five.jpeg" alt="OnlyOnce T-Shirt" class="gallery-img" loading="lazy">
+            </div>
+            <div class="gallery-img-wrap reveal-on-scroll delay-1">
+                <img src="./assets/tshirt_photos/tshirt_six.jpeg" alt="OnlyOnce T-Shirt" class="gallery-img" loading="lazy">
+            </div>
+            <div class="gallery-img-wrap reveal-on-scroll delay-2">
+                <img src="./assets/tshirt_photos/tshirt_seven.jpeg" alt="OnlyOnce T-Shirt" class="gallery-img" loading="lazy">
+            </div>
+        </div>
+
+        <div class="gallery-spacer"></div>
+
+        <div class="gallery-row centered">
+            <div class="gallery-img-wrap reveal-on-scroll">
+                <img src="./assets/tshirt_photos/tshirt_closeup.png" alt="OnlyOnce T-Shirt Close-up" class="gallery-img" loading="lazy">
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 OnlyOnce. All rights reserved.</p>
+    </footer>
 
     <script>
-        // Animation sequence
-        let currentStep = 0;
-        const steps = ['loader', 'reveal-prompt', 'home-content'];
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
 
-        // Initialize the sequence
-        function initSequence() {
-            // Start with loader visible
-            document.getElementById('loader').style.display = 'flex';
-            document.getElementById('reveal-prompt').style.display = 'none';
-            document.getElementById('home-content').style.display = 'none';
-            
-            // Start the sequence after 3 seconds
-            setTimeout(() => {
-                nextStep();
-            }, 3000);
-        }
-
-        // Move to next step
-        function nextStep() {
-            if (currentStep < steps.length - 1) {
-                const currentElement = document.getElementById(steps[currentStep]);
-                const nextElement = document.getElementById(steps[currentStep + 1]);
-                
-                // Fade out current element
-                currentElement.classList.add('fade-out');
-                
-                setTimeout(() => {
-                    currentElement.style.display = 'none';
-                    nextElement.style.display = 'flex';
-                    
-                    // Fade in next element
-                    setTimeout(() => {
-                        nextElement.classList.add('fade-in');
-                    }, 50);
-                    
-                    currentStep++;
-                }, 800);
-            }
-        }
-
-        // Handle reveal prompt click
-        document.getElementById('reveal-prompt').addEventListener('click', function() {
-            this.classList.add('fade-out');
-            
-            setTimeout(() => {
-                this.style.display = 'none';
-                const homeContent = document.getElementById('home-content');
-                homeContent.style.display = 'flex';
-                
-                setTimeout(() => {
-                    homeContent.classList.add('fade-in');
-                    document.querySelector('.policy-links').style.display = 'flex';
-                }, 50);
-            }, 800);
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('open');
         });
 
-        // Start the sequence when page loads
-        window.addEventListener('load', () => {
-            if (window.location.hash === '#show-content') {
-                // Instantly show home content if hash is present
-                document.getElementById('loader').style.display = 'none';
-                document.getElementById('reveal-prompt').style.display = 'none';
-                const homeContent = document.getElementById('home-content');
-                homeContent.style.display = 'flex';
-                homeContent.style.opacity = 1;
-                document.querySelector('.policy-links').style.display = 'flex';
-            } else {
-                // Otherwise, run the normal animation sequence
-                initSequence();
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // Split-screen hover (desktop only)
+        const hero = document.getElementById('hero');
+        const panelLeft = document.getElementById('panel-left');
+        const panelRight = document.getElementById('panel-right');
+        const isTouchDevice = () => window.matchMedia('(hover: none)').matches;
+
+        panelLeft.addEventListener('mouseenter', () => {
+            if (!isTouchDevice()) {
+                hero.classList.remove('hover-right');
+                hero.classList.add('hover-left');
             }
         });
+
+        panelRight.addEventListener('mouseenter', () => {
+            if (!isTouchDevice()) {
+                hero.classList.remove('hover-left');
+                hero.classList.add('hover-right');
+            }
+        });
+
+        hero.addEventListener('mouseleave', () => {
+            hero.classList.remove('hover-left', 'hover-right');
+        });
+
+        // Scroll reveal via IntersectionObserver
+        const revealElements = document.querySelectorAll('.reveal-on-scroll');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        revealElements.forEach(el => observer.observe(el));
     </script>
 </body>
-</html> 
+</html>
